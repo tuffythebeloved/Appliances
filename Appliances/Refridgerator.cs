@@ -11,10 +11,12 @@ namespace Appliances
 {
     internal class Refridgerator : Appliance
     {
+        //fields
         private int _doors;
         private double _height;
         private double _width;
 
+        //properties
         public int Doors
         {
             get { return _doors; }
@@ -30,6 +32,8 @@ namespace Appliances
             get { return _width; }
             set { _width = value; }
         }
+
+        //constructor
         public Refridgerator(long itemNumber, string brand, int quantity, double wattage, string colour, double price, int doors, double height, double width)
             : base(itemNumber, brand, quantity, wattage, colour, price)
         {
@@ -38,12 +42,14 @@ namespace Appliances
             _width = width;
         }
 
+        //formats properties to be added to file
         override public string FormatForFile()
         {
             string format = base.FormatForFile() + ";" + Doors.ToString() + ";" + Height.ToString() + ";" + Width.ToString();
             return format;
         }
 
+        //Formats properties for readability to user
         public override string ToString()
         {
             string itemNum = "Item Number: " + ItemNumber.ToString();

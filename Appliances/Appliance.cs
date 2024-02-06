@@ -8,6 +8,7 @@ namespace Appliances
 {
     internal class Appliance
     {
+        //fields
         private string? _brand;
         private string? _colour;
         private long _itemNumber;
@@ -15,6 +16,7 @@ namespace Appliances
         private int _quantity;
         private double _wattage;
 
+        //properties
         public string? Brand 
         { 
             get { return _brand; }
@@ -47,6 +49,7 @@ namespace Appliances
         }
         public string? Type { get; set; }
 
+        //constructor(for info on how to use, view refridgerator)
         protected Appliance(long itemNumber, string brand, int quantity, double wattage, string colour, double price) 
         {
             _itemNumber = itemNumber;
@@ -59,6 +62,7 @@ namespace Appliances
             DetermineApplianceType();
         }
 
+        //removes ones from quantity
         public void Checkout()
         {
             if (Quantity > 0)
@@ -71,6 +75,7 @@ namespace Appliances
             }
         }
         
+        //assigns type based on ID
         public void DetermineApplianceType()
         {
             char type = ItemNumber.ToString().First();
@@ -96,6 +101,8 @@ namespace Appliances
                     break;
             }
         }
+
+        //formats for file
         public virtual string FormatForFile()
         {
             string format = ItemNumber.ToString() + ";" + Brand + ";" + Quantity.ToString() + ";" + Wattage.ToString() + ";" + Colour + ";" + Price.ToString();

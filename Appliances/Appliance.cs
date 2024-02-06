@@ -47,7 +47,7 @@ namespace Appliances
         }
         public string? Type { get; set; }
 
-        public Appliance(long itemNumber, string brand, int quantity, double wattage, string colour, double price) 
+        protected Appliance(long itemNumber, string brand, int quantity, double wattage, string colour, double price) 
         {
             _itemNumber = itemNumber;
             _brand = brand;
@@ -96,10 +96,9 @@ namespace Appliances
                     break;
             }
         }
-        public string FormatForFile()
+        public virtual string FormatForFile()
         {
             string format = ItemNumber.ToString() + ";" + Brand + ";" + Quantity.ToString() + ";" + Wattage.ToString() + ";" + Colour + ";" + Price.ToString();
-            Console.WriteLine (format);
             return format;
         }
     }

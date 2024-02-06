@@ -1,0 +1,15 @@
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.csproj.AssemblyReference.cache
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.AssemblyInfoInputs.cache
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.AssemblyInfo.cs
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.csproj.CoreCompileInputs.cache
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\bin\Debug\net7.0\Appliances.exe
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\bin\Debug\net7.0\Appliances.deps.json
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\bin\Debug\net7.0\Appliances.runtimeconfig.json
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\bin\Debug\net7.0\Appliances.dll
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\bin\Debug\net7.0\Appliances.pdb
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.dll
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\refint\Appliances.dll
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.pdb
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\Appliances.genruntimeconfig.cache
+C:\Users\Thalia-school\Desktop\code\OOP\Appliances\Appliances\obj\Debug\net7.0\ref\Appliances.dll

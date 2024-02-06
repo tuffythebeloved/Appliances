@@ -1,8 +1,10 @@
-﻿namespace Appliances
+﻿using System;
+
+namespace Appliances
 {
     class Program
     {
-        void Main(string[] args)
+        public static void Main(string[] args)
         {
 
         }

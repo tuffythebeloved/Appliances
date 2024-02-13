@@ -7,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace Appliances
+namespace Appliances.Appliances
 {
-    internal class Refridgerator : Appliance
+    //Thalia
+    internal class Refrigerator : Appliance
     {
         //fields
         private int _doors;
@@ -34,7 +35,7 @@ namespace Appliances
         }
 
         //constructor
-        public Refridgerator(long itemNumber, string brand, int quantity, double wattage, string colour, double price, int doors, double height, double width)
+        public Refrigerator(long itemNumber, string brand, int quantity, double wattage, string colour, double price, int doors, double width, double height)
             : base(itemNumber, brand, quantity, wattage, colour, price)
         {
             _doors = doors;

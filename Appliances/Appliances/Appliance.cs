@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appliances
+namespace Appliances.Appliances
 {
+    //Thalia
     internal class Appliance
     {
         //fields
@@ -17,40 +18,40 @@ namespace Appliances
         private double _wattage;
 
         //properties
-        public string? Brand 
-        { 
+        public string? Brand
+        {
             get { return _brand; }
             set { _brand = value; }
         }
-        public string? Colour 
+        public string? Colour
         {
             get { return _colour; }
             set { _colour = value; }
         }
-        public long ItemNumber 
+        public long ItemNumber
         {
             get { return _itemNumber; }
             set { _itemNumber = value; }
         }
         public double Price
-        { 
-            get { return _price; } 
+        {
+            get { return _price; }
             set { _price = value; }
         }
-        public int Quantity 
-        { 
+        public int Quantity
+        {
             get { return _quantity; }
             set { _quantity = value; }
         }
-        public double Wattage 
-        { 
+        public double Wattage
+        {
             get { return _wattage; }
             set { _wattage = value; }
         }
         public string? Type { get; set; }
 
         //constructor(for info on how to use, view refridgerator)
-        protected Appliance(long itemNumber, string brand, int quantity, double wattage, string colour, double price) 
+        protected Appliance(long itemNumber, string brand, int quantity, double wattage, string colour, double price)
         {
             _itemNumber = itemNumber;
             _brand = brand;
@@ -74,7 +75,7 @@ namespace Appliances
                 Console.WriteLine("The appliance is not available to be checked out.");
             }
         }
-        
+
         //assigns type based on ID
         public void DetermineApplianceType()
         {
@@ -82,7 +83,7 @@ namespace Appliances
             switch (type)
             {
                 case '1':
-                    Type = "Refridgerator";
+                    Type = "Refrigerator";
                     break;
                 case '2':
                     Type = "Vacuum";
@@ -94,15 +95,15 @@ namespace Appliances
                     Type = "Dishwasher";
                     break;
                 case '5':
-                    Type = "DishWasher";
+                    Type = "Dishwasher";
                     break;
                 default:
-                    Type = "Unknown"; 
+                    Type = "Unknown";
                     break;
             }
         }
 
-        //formats for file
+        //formats properties to be added to file
         public virtual string FormatForFile()
         {
             string format = ItemNumber.ToString() + ";" + Brand + ";" + Quantity.ToString() + ";" + Wattage.ToString() + ";" + Colour + ";" + Price.ToString();

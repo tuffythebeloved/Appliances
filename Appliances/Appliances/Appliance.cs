@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Appliances.Appliances
 {
     //Thalia
-    internal class Appliance
+    public class Appliance
     {
         //fields
         private string? _brand;

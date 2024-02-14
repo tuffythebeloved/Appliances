@@ -1,18 +1,7 @@
 using System;
 
-namespace Appliances
+namespace Appliances.Appliances
 {
-    public class Appliance
-    {
-        // Properties for basic appliance information
-        public string ItemNumber { get; set; }
-        public string Brand { get; set; }
-        public int Quantity { get; set; }
-        public int Wattage { get; set; }
-        public string Color { get; set; }
-        public decimal Price { get; set; }
-    }
-
     public class Dishwasher : Appliance
     {
         // Additional properties specific to dishwashers
@@ -21,6 +10,7 @@ namespace Appliances
         private const string SoundRatingModerate = "M";
         private const string SoundRatingQuietest = "Qt";
         private const string SoundRatingQuieter = "Qr";
+        private const string SoundRatingQuiet = "Qu";
 
         // Property for dishwasher feature
         public string Feature
@@ -35,7 +25,7 @@ namespace Appliances
             get { return _soundRating; }
             set
             {
-                if (value == SoundRatingModerate || value == SoundRatingQuietest || value == SoundRatingQuieter)
+                if (value == SoundRatingModerate || value == SoundRatingQuietest || value == SoundRatingQuieter || value == SoundRatingQuiet)
                 {
                     _soundRating = value;
                 }
@@ -59,6 +49,8 @@ namespace Appliances
                         return "Quietest";
                     case SoundRatingQuieter:
                         return "Quieter";
+                    case SoundRatingQuiet:
+                        return "Quiet";
                     default:
                         return "Unknown";
                 }
@@ -68,24 +60,19 @@ namespace Appliances
         // Method to format dishwasher information for file output
         public string FormatForFile()
         {
-            return $"{ItemNumber};{Brand};{Quantity};{Wattage};{Color};{Price};{Feature};{SoundRatingDishwasher}";
+            return $"{ItemNumber};{Brand};{Quantity};{Wattage};{Colour};{Price};{Feature};{SoundRatingDishwasher}";
         }
 
         // Override of ToString() method to display dishwasher information
         public override string ToString()
         {
-            return $"Item Number: {ItemNumber}, Brand: {Brand}, Quantity: {Quantity}, Wattage: {Wattage}, Color: {Color}, Price: {Price}, Feature: {Feature}, Sound Rating: {SoundRatingDishwasher}";
+            return $"Item Number: {ItemNumber}\n Brand: {Brand}\n Quantity: {Quantity}\n Wattage: {Wattage}\n Color: {Colour}\n Price: {Price}\n Feature: {Feature}\n Sound Rating: {SoundRatingDishwasher}";
         }
 
         // Constructor for Dishwasher class
-        public Dishwasher(string itemNumber, string brand, int quantity, int wattage, string color, decimal price, string feature, string soundRating)
+        public Dishwasher(long itemNumber, string brand, int quantity, int wattage, string color, double price, string feature, string soundRating)
+            :base(itemNumber, brand, quantity, wattage, color, price)
         {
-            ItemNumber = itemNumber;
-            Brand = brand;
-            Quantity = quantity;
-            Wattage = wattage;
-            Color = color;
-            Price = price;
             Feature = feature;
             SoundRating = soundRating;
         }

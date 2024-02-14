@@ -1,18 +1,8 @@
 using System;
 
-namespace Appliances
+namespace Appliances.Appliances
 {
-    public class Appliance
-    {
-        // Defining properties for the Appliance class
-        public string ItemNumber { get; set; }
-        public string Brand { get; set; }
-        public int Quantity { get; set; }
-        public int Wattage { get; set; }
-        public string Color { get; set; }
-        public decimal Price { get; set; }
-    }
-
+    //Aayan
     public class Vacuum : Appliance
     {
         // Defining private fields for the Vacuum class
@@ -46,24 +36,30 @@ namespace Appliances
         // Method to format the object's data for file output
         public string FormatForFile()
         {
-            return $"{ItemNumber};{Brand};{Quantity};{Wattage};{Color};{Price};{Grade};{BatteryVoltage}";
+            return $"{ItemNumber};{Brand};{Quantity};{Wattage};{Colour};{Price};{Grade};{BatteryVoltage}";
         }
 
         // Overriding the ToString method to provide a string representation of the object
         public override string ToString()
         {
-            return $"Item Number: {ItemNumber}, Brand: {Brand}, Quantity: {Quantity}, Wattage: {Wattage}, Color: {Color}, Price: {Price}, Grade: {Grade}, Battery Voltage: {BatteryVoltage}";
+            string voltage = "unknown";
+
+            if (BatteryVoltage == 18)
+            {
+                voltage = "Low";
+            }
+            else if(BatteryVoltage == 24)
+            {
+                voltage = "High";
+            }
+
+            return $"Item Number: {ItemNumber}\n Brand: {Brand}\n Quantity: {Quantity}\n Wattage: {Wattage}\n Color: {Colour}\n Price: {Price}\n Grade: {Grade}\n Battery Voltage: {voltage}";
         }
 
         // Constructor for the Vacuum class
-        public Vacuum(string itemNumber, string brand, int quantity, int wattage, string color, decimal price, string grade, int batteryVoltage)
+        public Vacuum(long itemNumber, string brand, int quantity, int wattage, string color, double price, string grade, int batteryVoltage)
+            :base(itemNumber, brand, quantity, wattage, color, price)
         {
-            ItemNumber = itemNumber;
-            Brand = brand;
-            Quantity = quantity;
-            Wattage = wattage;
-            Color = color;
-            Price = price;
             Grade = grade;
             BatteryVoltage = batteryVoltage;
         }

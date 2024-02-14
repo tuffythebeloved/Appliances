@@ -1,11 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.IO;
-using Appliances.Appliances;
-
+﻿//Created by Aayan Karim and Thalia Munroe - Feb 13, 2024
 namespace Appliances
 {
+    //thalia
     class Program
     { 
         public static void Main(string[] args)

@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Appliances;
+using System.Runtime.ExceptionServices;
+using Appliances.Appliances;
 
-namespace ModernAppliances
+namespace Appliances
 {
-    public class ModernAppliances
+    //Aayan
+    public abstract class ModernAppliances
     {
         // Fields
         private List<Appliance> appliances;
-        private string APPLIANCES_TEXT_FILE = "appliances.txt";
+        private string APPLIANCES_TEXT_FILE = "../../../Resources/appliances.txt";
 
         // Properties
         public List<Appliance> Appliances
@@ -22,267 +24,181 @@ namespace ModernAppliances
         public ModernAppliances()
         {
             // Initialize the list in the constructor
-            appliances = new List<Appliance>();
+            appliances = ReadAppliances(APPLIANCES_TEXT_FILE);
         }
 
-        // Nested Types
-        public abstract class Appliance
+        // Methods
+        public void DisplayMenu()
         {
-            // Common fields and properties for all appliances
-            public string ItemNumber { get; set; }
-            public string Brand { get; set; }
-            public int Quantity { get; set; }
-            public int Wattage { get; set; }
-            public string Color { get; set; }
-            public decimal Price { get; set; }
-            public string Type { get; set; }
+            Console.WriteLine("Welcome to Modern Appliances!");
+            Console.WriteLine("How May We Assist You ?");
+            Console.WriteLine("1 – Check out appliance");
+            Console.WriteLine("2 – Find appliances by brand");
+            Console.WriteLine("3 – Display appliances by type");
+            Console.WriteLine("4 – Produce random appliance list");
+            Console.WriteLine("5 – Save & exit");
+        }
+        public Appliance CreateApplianceFromParts(string[] parameters)
+        {
 
-            // Constructor
-            protected Appliance(string itemNumber, string brand, int quantity, int wattage, string color, decimal price)
+            switch (parameters[0].First())
             {
-                ItemNumber = itemNumber;
-                Brand = brand;
-                Quantity = quantity;
-                Wattage = wattage;
-                Color = color;
-                Price = price;
-                DetermineApplianceType();
+                case '1':
+                    return CreateRefrigerator(parameters);
+                case '2':
+                    return CreateVacuum(parameters);
+                case '3':
+                    return CreateMicrowave(parameters);
+                case '4':
+                    return CreateDishwasher(parameters);
+                case '5':
+                    return CreateDishwasher(parameters);
+                default:
+                    throw new ArgumentException("Invalid appliance type");
+            }
+        }
+
+        public Microwave CreateMicrowave(string[] parameters)
+        {
+            long itemNumber = long.Parse(parameters[0]);
+            string brand = parameters[1];
+            int quantity = int.Parse(parameters[2]);
+            int wattage = int.Parse(parameters[3]);
+            string color = parameters[4];
+            double price = double.Parse(parameters[5]);
+            double capacity = double.Parse(parameters[6]);
+            char roomType = char.Parse(parameters[7]);
+
+            Microwave microwave = new(itemNumber, brand, quantity, wattage, color, price, capacity, roomType);
+
+            return microwave;
+        }
+
+        public Refrigerator CreateRefrigerator(string[] parameters)
+        {
+            long itemNumber = long.Parse(parameters[0]);
+            string brand = parameters[1];
+            int quantity = int.Parse(parameters[2]);
+            int wattage = int.Parse(parameters[3]);
+            string color = parameters[4];
+            double price = double.Parse(parameters[5]);
+            int doors = int.Parse(parameters[6]);
+            double height = double.Parse(parameters[7]);
+            double width = double.Parse(parameters[8]);
+            Refrigerator refrigerator = new Refrigerator(itemNumber, brand, quantity, wattage, color, price, doors, height, width);
+
+            return refrigerator;
+        }
+
+        public Vacuum CreateVacuum(string[] parameters)
+        {
+            long itemNumber = long.Parse(parameters[0]);
+            string brand = parameters[1];
+            int quantity = int.Parse(parameters[2]);
+            int wattage = int.Parse(parameters[3]);
+            string color = parameters[4];
+            double price = double.Parse(parameters[5]);
+            string grade = parameters[6];
+            int batteryVoltage = int.Parse(parameters[7]);
+
+            Vacuum vacuum = new Vacuum(itemNumber, brand, quantity, wattage, color, price, grade, batteryVoltage);
+
+            return vacuum;
+        }
+
+        public Dishwasher CreateDishwasher(string[] parameters)
+        {
+            long itemNumber = long.Parse(parameters[0]);
+            string brand = parameters[1];
+            int quantity = int.Parse(parameters[2]);
+            int wattage = int.Parse(parameters[3]);
+            string color = parameters[4];
+            double price = double.Parse(parameters[5]);
+            string feature = parameters[6];
+            string soundRating = parameters[7];
+
+            Dishwasher dishwasher = new Dishwasher(itemNumber, brand, quantity, wattage, color, price, feature, soundRating);
+
+            return dishwasher;
+        }
+
+        public void DisplayAppliancesFromList(List<Appliance> list, int max)
+        {
+            if(max == 0)
+            {
+                max = list.Count;
             }
 
-            // Removes one from quantity
-            public void Checkout()
+            if (list.Count > 0)
             {
-                if (Quantity > 0)
+                for (int i = 0; i < max; i++)
                 {
-                    Quantity--;
-                }
-                else
-                {
-                    Console.WriteLine("The appliance is not available to be checked out.");
+                    Console.WriteLine(list[i].ToString());
                 }
             }
-
-            // Assigns type based on ID
-            private void DetermineApplianceType()
+            else
             {
-                char type = ItemNumber[0];
-                switch (type)
+                Console.WriteLine("No appliances found");
+            }
+        }
+        public void DisplayType()
+        {
+            Console.WriteLine("Appliance Types");
+            Console.WriteLine("1 – Refrigerators");
+            Console.WriteLine("2 – Vacuums");
+            Console.WriteLine("3 – Microwaves");
+            Console.WriteLine("4 – Dishwashers");
+
+            Console.Write("Enter type of appliance:");
+
+            int selection;
+
+            if (int.TryParse(Console.ReadLine(), out selection))
+            { 
+                switch (selection)
                 {
-                    case '1':
-                        Type = "Refrigerator";
+                    case 1:
+                        DisplayRefrigerators();
                         break;
-                    case '2':
-                        Type = "Vacuum";
+                    case 2:
+                        DisplayVacuums();
                         break;
-                    case '3':
-                        Type = "Microwave";
+                    case 3:
+                        DisplayMicrowaves();
                         break;
-                    case '4':
-                        Type = "Dishwasher";
+                    case 4:
+                        DisplayDishwashers();
                         break;
                     default:
-                        Type = "Unknown";
+                        Console.WriteLine("Invalid appliance type entered.");
                         break;
                 }
             }
-
-            // Formats for file
-            public virtual string FormatForFile()
+            else
             {
-                return $"{ItemNumber};{Brand};{Quantity};{Wattage};{Color};{Price}";
+                Console.WriteLine("Error: Not a number");
             }
         }
-
-        public class Microwave : Appliance
+        public List<Appliance> ReadAppliances(string fileName)
         {
-            private double _capacity;
-            private string _roomType;
-            private string roomType;
+            List<Appliance> result = new List<Appliance>();
 
-            public Microwave(string itemNumber, string brand, int quantity, int wattage, string color, decimal price, double capacity, string roomType) : base(itemNumber, brand, quantity, wattage, color, price)
+            using (StreamReader reader = new StreamReader(fileName))
             {
-                Capacity = capacity;
-                this.roomType = roomType;
-            }
+                string line;
 
-            public double Capacity
-            {
-                get { return _capacity; }
-                set { _capacity = value; }
-            }
-
-            public IEnumerable<Appliance> Appliances { get; private set; }
-
-            // Methods
-
-            public void CreateAppliance(string type, params object[] parameters)
-            {
-                switch (type)
+                while ((line = reader.ReadLine()) != null)
                 {
-                    case "Microwave":
-                        CreateMicrowave(parameters);
-                        break;
-                    case "Refrigerator":
-                        CreateRefrigerator(parameters);
-                        break;
-                    case "Vacuum":
-                        CreateVacuum(parameters);
-                        break;
-                    case "Dishwasher":
-                        CreateDishwasher(parameters);
-                        break;
-                    default:
-                        throw new ArgumentException("Invalid appliance type");
+                    string[] parts = line.Split(';');
+
+                    // Determine the type of appliance based on the item number prefix
+                    result.Add(CreateApplianceFromParts(parts));
                 }
             }
 
-            public void CreateMicrowave(params object[] parameters)
-            {
-                string itemNumber = (string)parameters[0];
-                string brand = (string)parameters[1];
-                int quantity = (int)parameters[2];
-                int wattage = (int)parameters[3];
-                string color = (string)parameters[4];
-                decimal price = (decimal)parameters[5];
-                double capacity = (double)parameters[6];
-                string roomType = (string)parameters[7];
-
-                Microwave microwave = new(itemNumber, brand, quantity, wattage, color, price, capacity, roomType);
-                Appliances.Add(microwave);
-            }
-
-            public void CreateRefrigerator(params object[] parameters)
-            {
-                string itemNumber = (string)parameters[0];
-                string brand = (string)parameters[1];
-                int quantity = (int)parameters[2];
-                int wattage = (int)parameters[3];
-                string color = (string)parameters[4];
-                decimal price = (decimal)parameters[5];
-                int doors = (int)parameters[6];
-                double height = (double)parameters[7];
-                double width = (double)parameters[8];
-                Refrigerator refrigerator = new Refrigerator(itemNumber, brand, quantity, wattage, color, price, doors, height, width);
-                Appliances.Add(refrigerator);
-            }
-
-            public void CreateVacuum(params object[] parameters)
-            {
-                string itemNumber = (string)parameters[0];
-                string brand = (string)parameters[1];
-                int quantity = (int)parameters[2];
-                int wattage = (int)parameters[3];
-                string color = (string)parameters[4];
-                decimal price = (decimal)parameters[5];
-                string grade = (string)parameters[6];
-                int batteryVoltage = (int)parameters[7];
-
-                Vacuum vacuum = new Vacuum(itemNumber, brand, quantity, wattage, color, price, grade, batteryVoltage);
-                Appliances.Add(vacuum);
-            }
-
-            public void CreateDishwasher(params object[] parameters)
-            {
-                string itemNumber = (string)parameters[0];
-                string brand = (string)parameters[1];
-                int quantity = (int)parameters[2];
-                int wattage = (int)parameters[3];
-                string color = (string)parameters[4];
-                decimal price = (decimal)parameters[5];
-                string feature = (string)parameters[6];
-                string soundRating = (string)parameters[7];
-
-                Dishwasher dishwasher = new Dishwasher(itemNumber, brand, quantity, wattage, color, price, feature, soundRating);
-                Appliances.Add(dishwasher);
-            }
-
-            public void DisplayAppliance(string itemNumber)
-            {
-                Appliance appliance = Appliances.FirstOrDefault(a => a.ItemNumber == itemNumber);
-                if (appliance != null)
-                {
-                    Console.WriteLine(appliance.ToString());
-                }
-                else
-                {
-                    Console.WriteLine("No appliance found with that item number.");
-                }
-            }
-
-            public void DisplayDishwashers()
-            {
-                var dishwashers = Appliances.Where(a => a.Type == "Dishwasher");
-                foreach (var dishwasher in dishwashers)
-                {
-                    Console.WriteLine(dishwasher.ToString());
-                }
-            }
-
-            public List<Appliance> Find(string brand)
-            {
-                return Appliances.Where(a => a.Brand == brand).ToList();
-            }
-
-            public List<Appliance> RandomList(int count)
-            {
-                return Appliances.OrderBy(a => Guid.NewGuid()).Take(count).ToList();
-            }
-
-            public List<Appliance> ReadAppliances(string fileName)
-            {
-                List<Appliance> result = new List<Appliance>();
-
-                using (StreamReader reader = new StreamReader(fileName))
-                {
-                    string line;
-
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] parts = line.Split(';');
-
-                        string itemNumber = parts[0];
-                        string brand = parts[1];
-                        int quantity = int.Parse(parts[2]);
-                        int wattage = int.Parse(parts[3]);
-                        string color = parts[4];
-                        decimal price = decimal.Parse(parts[5]);
-
-                        // Determine the type of appliance based on the item number prefix
-                        switch (itemNumber[0])
-                        {
-                            case '1': // Refrigerator
-                                int doors = int.Parse(parts[6]);
-                                double height = double.Parse(parts[7]);
-                                double width = double.Parse(parts[8]);
-                                result.Add(new Refrigerator(itemNumber, brand, quantity, wattage, color, price, doors, height, width));
-                                break;
-                            case '2': // Vacuum
-                                string grade = parts[6];
-                                int batteryVoltage = int.Parse(parts[7]);
-                                result.Add(new Vacuum(itemNumber, brand, quantity, wattage, color, price, grade, batteryVoltage));
-                                break;
-                            case '3': // Microwave
-                                double capacity = double.Parse(parts[6]);
-                                string roomType = parts[7];
-                                result.Add(new Microwave(itemNumber, brand, quantity, wattage, color, price, capacity, roomType));
-                                break;
-                            case '4': // Dishwasher
-                                string feature = parts[6];
-                                string soundRating = parts[7];
-                                result.Add(new Dishwasher(itemNumber, brand, quantity, wattage, color, price, feature, soundRating));
-                                break;
-                            default:
-                                Console.WriteLine($"Invalid item number prefix: {itemNumber[0]}");
-                                break;
-                        }
-                    }
-                }
-
-                return result;
-            }
+            return result;
         }
-
-        private void Save()
+        public void Save()
         {
             using (StreamWriter writer = new StreamWriter(APPLIANCES_TEXT_FILE))
             {
@@ -292,5 +208,14 @@ namespace ModernAppliances
                 }
             }
         }
+
+        //abstract methods
+        public abstract void DisplayRefrigerators();
+        public abstract void DisplayVacuums();
+        public abstract void DisplayDishwashers();
+        public abstract void DisplayMicrowaves();
+        public abstract void Find();
+        public abstract void RandomList();
+        public abstract void Checkout();
     }
 }

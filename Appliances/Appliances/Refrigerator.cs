@@ -10,7 +10,7 @@ using System.Transactions;
 namespace Appliances.Appliances
 {
     //Thalia
-    internal class Refrigerator : Appliance
+    public class Refrigerator : Appliance
     {
         //fields
         private int _doors;
@@ -35,7 +35,7 @@ namespace Appliances.Appliances
         }
 
         //constructor
-        public Refrigerator(long itemNumber, string brand, int quantity, double wattage, string colour, double price, int doors, double width, double height)
+        public Refrigerator(long itemNumber, string brand, int quantity, double wattage, string colour, double price, int doors, double height, double width)
             : base(itemNumber, brand, quantity, wattage, colour, price)
         {
             _doors = doors;
